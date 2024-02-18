@@ -1,0 +1,13 @@
+---
+kind: pipeline
+type: kubernetes
+name: default
+
+image_pull_secrets:
+- harborcreds
+
+steps:
+- name: build-docker-image
+  image: registry.0x42.in/library/docker/genesis-avalon-builder:bookworm
+  commands:
+  - svu
