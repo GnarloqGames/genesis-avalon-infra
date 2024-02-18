@@ -9,6 +9,9 @@ image_pull_secrets:
 steps:
 - name: build-and-push-builder-image
   image: docker:dind
+  environment:
+    DOCKER_PWD:
+      from_secret: harborpwd
   when:
     event:
       - tag
@@ -17,6 +20,7 @@ steps:
     path: /var/run
   commands:
   - sleep 5 # give docker enough time to start
+  - docker login registry.0x42.in -u 'robot$dronetest' -p ${DOCKER_PWD}
   - export IMAGE=registry.0x42.in/library/docker/genesis-avalon-builder:bookworm-${DRONE_TAG}
   - docker build -f ./docker/builder/Dockerfile -t $IMAGE ./docker/builder
   - docker push $IMAGE
