@@ -9,5 +9,8 @@ image_pull_secrets:
 steps:
 - name: build-docker-image
   image: registry.0x42.in/library/docker/genesis-avalon-builder:bookworm
+  when:
+    branch:
+      - main
   commands:
-  - svu
+  - echo docker build -f ./docker/builder/Dockerfile registry.0x42.in/library/genesis-avalon-builder:bookworm-$(svu)
