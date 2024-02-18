@@ -10,15 +10,16 @@ steps:
 - name: build-and-push-builder-image
   image: docker:dind
   when:
-    branch:
-      - main
+    event:
+      - tag
   volumes:
   - name: dockersock
     path: /var/run
   commands:
   - sleep 5 # give docker enough time to start
-  - echo ${DRONE_TAG}
-  # - docker build -f ./docker/builder/Dockerfile registry.0x42.in/library/docker/genesis-avalon-builder:bookworm-${DRONE_TAG}
+  - export IMAGE=registry.0x42.in/library/docker/genesis-avalon-builder:bookworm-${DRONE_TAG}
+  - echo $IMAGE
+  # - docker build -f ./docker/builder/Dockerfile 
 
 services:
 - name: docker
