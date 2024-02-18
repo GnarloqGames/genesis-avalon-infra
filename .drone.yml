@@ -13,4 +13,5 @@ steps:
     branch:
       - main
   commands:
-  - echo docker build -f ./docker/builder/Dockerfile registry.0x42.in/library/genesis-avalon-builder:bookworm-$(svu)
+  - export VER=$(svu --tag-mode all-branches c)
+  - docker build -f ./docker/builder/Dockerfile registry.0x42.in/library/docker/genesis-avalon-builder:bookworm-${VER}
