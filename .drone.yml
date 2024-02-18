@@ -18,8 +18,8 @@ steps:
   commands:
   - sleep 5 # give docker enough time to start
   - export IMAGE=registry.0x42.in/library/docker/genesis-avalon-builder:bookworm-${DRONE_TAG}
-  - echo $IMAGE
-  # - docker build -f ./docker/builder/Dockerfile 
+  - docker build -f ./docker/builder/Dockerfile $IMAGE
+  - docker push $IMAGE
 
 services:
 - name: docker
