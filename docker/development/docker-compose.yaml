@@ -1,0 +1,77 @@
+version: '3'
+
+services:
+  couchbase:
+    image: couchbase:community-7.2.4
+    volumes:
+      - couchbase_data:/opt/couchbase/var
+    ports:
+      - 8091:8091
+      # These are not required to be exposed unless debugging
+      - 8092-8097:8092-8097
+      - 9123:9123
+      - 11207:11207
+      - 11210:11210
+      - 11280:11280
+      - 18091-18097:18091-18097
+  nats:
+    image: nats:2.10-scratch
+    ports:
+      - 4222:4222
+      - 6222:6222
+      - 8222:8222
+  avalond:
+    image: registry.0x42.in/library/docker/genesis-avalon-avalond:v0.4.1
+    depends_on:
+      - nats
+    command:
+      - start
+      - --nats-address
+      - nats://nats:4222
+      - --nats-encoding
+      - protobuf
+      - --couchbase-url
+      - couchbase
+      - --couchbase-username
+      - admin
+      - --couchbase-password
+      - hackmeuwu
+      - --couchbase-bucket
+      - genesis-avalon
+  gateway:
+    image: registry.0x42.in/library/docker/genesis-avalon-gateway:v0.4.0
+    depends_on:
+      - nats
+      - couchbase
+    ports:
+      - 8080:8080
+    command:
+      - start
+      - --nats-address
+      - nats://nats:4222
+      - --nats-encoding
+      - protobuf
+      - --host
+      - 0.0.0.0
+      - --oidc-provider
+      - https://idman.0x42.in/realms/dev.avalon.cool
+      - --oidc-client-id
+      - dev.avalon.cool
+      - --couchbase-url
+      - couchbase
+      - --couchbase-username
+      - admin
+      - --couchbase-password
+      - hackmeuwu
+      - --couchbase-bucket
+      - genesis-avalon
+  ui:
+    image: registry.0x42.in/library/docker/genesis-avalon-ui:v0.2.0
+    ports:
+      - 8081:80
+    volumes:
+      - ./ui/config.js:/usr/share/caddy/config.js
+      - ./ui/Caddyfile:/etc/caddy/Caddyfile
+
+volumes:
+  couchbase_data:
