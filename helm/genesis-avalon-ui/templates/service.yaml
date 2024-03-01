@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "genesis-avalon-ui.fullname" . }}-active
+  labels:
+    app: {{ include "genesis-avalon-ui.name" . }}
+    chart: {{ include "genesis-avalon-ui.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ include "genesis-avalon-ui.name" . }}
+    release: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "genesis-avalon-ui.fullname" . }}-preview
+  labels:
+    app: {{ include "genesis-avalon-ui.name" . }}
+    chart: {{ include "genesis-avalon-ui.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ include "genesis-avalon-ui.name" . }}
+    release: {{ .Release.Name }}

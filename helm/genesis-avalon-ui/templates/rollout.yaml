@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "genesis-avalon-ui.fullname" . }}
+  labels:
+    app: {{ include "genesis-avalon-ui.name" . }}
+    chart: {{ include "genesis-avalon-ui.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      app: {{ include "genesis-avalon-ui.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "genesis-avalon-ui.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+      volumes:
+      - name: app-config
+        configMap:
+          name: {{ include "genesis-avalon-ui.name" . }}
+      containers:
+      - name: {{ include "genesis-avalon-ui.name" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+        - name: app-config
+          mountPath: "/usr/share/caddy/config"
+          readOnly: true
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+  strategy:
+    blueGreen:
+      activeService: {{ include "genesis-avalon-ui.fullname" . }}-active
+      previewService: {{ include "genesis-avalon-ui.fullname" . }}-preview
+      autoPromotionEnabled: false
+            
