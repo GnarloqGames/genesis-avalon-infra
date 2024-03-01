@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "couchbase.fullname" . }}
+  labels:
+    app: {{ include "couchbase.name" . }}
+    chart: {{ include "couchbase.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "couchbase.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "couchbase.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+      containers:
+      - name: {{ include "couchbase.name" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+        - mountPath: /opt/couchbase/var
+          name: couchbase-data
+        ports:
+        - name: http
+          containerPort: 8091
+          protocol: TCP
+      volumes:
+      - name: couchbase-data
+        persistentVolumeClaim:
+          claimName: {{ include "couchbase.name" . }}
+  strategy:
+    blueGreen:
+      activeService: {{ include "couchbase.fullname" . }}-active
+      previewService: {{ include "couchbase.fullname" . }}-preview
+      autoPromotionEnabled: false
+            

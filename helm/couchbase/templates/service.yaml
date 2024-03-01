@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "couchbase.fullname" . }}-active
+  labels:
+    app: {{ include "couchbase.name" . }}
+    chart: {{ include "couchbase.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    {{- range $key, $value := .Values.service.additionalPorts }}
+    - port: {{ $value }}
+      targetPort: {{ $value }}
+      protocol: TCP
+      name: {{ $key }}
+    {{- end }}
+  selector:
+    app: {{ include "couchbase.name" . }}
+    release: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "couchbase.fullname" . }}-preview
+  labels:
+    app: {{ include "couchbase.name" . }}
+    chart: {{ include "couchbase.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    {{- range $key, $value := .Values.service.additionalPorts }}
+    - port: {{ $value }}
+      targetPort: {{ $value }}
+      protocol: TCP
+      name: {{ $key }}
+    {{- end }}
+  selector:
+    app: {{ include "couchbase.name" . }}
+    release: {{ .Release.Name }}
