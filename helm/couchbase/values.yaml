@@ -18,52 +18,52 @@ fullnameOverride: ""
 service:
   type: ClusterIP
   port: 8091
-  # additionalPorts:
-  #   ssl-rest-port: 18091
-  #   capi-port: 8092
-  #   ssl-capi-port: 18092
-  #   query-port: 8093
-  #   ssl-query-port: 18093
-  #   fts-http-port: 8094
-  #   fts-ssl-port: 18094
-  #   cbas-http-port: 8095
-  #   cbas-ssl-port: 18095
-  #   eventing-http-port: 8096
-  #   eventing-ssl-port: 18096
-  #   backup-http-port: 8097
-  #   backup-ssl-port: 18097
-  #   indexer-admin-port: 9100
-  #   indexer-scan-port: 9101
-  #   indexer-http-port: 9102
-  #   indexer-https-port: 19102
-  #   indexer-stinit-port: 9103
-  #   indexer-stcatchup-port: 9104
-  #   indexer-stmaint-port: 9105
-  #   cbas-admin-port: 9110
-  #   cbas-cc-http-port: 9111
-  #   cbas-cc-cluster-port: 9112
-  #   cbas-cc-client-port: 9113
-  #   cbas-console-port: 9114
-  #   cbas-cluster-port: 9115
-  #   cbas-data-port: 9116
-  #   cbas-result-port: 9117
-  #   cbas-messaging-port: 9118
-  #   cbas-auth-port: 9119
-  #   cbas-replication-port: 9120
-  #   cbas-metadata-port: 9121
-  #   cbas-metadata-callback-port: 9122
-  #   prometheus-http-port: 9123
-  #   backup-grpc-port: 9124
-  #   fts-grpc-port: 9130
-  #   fts-grpc-ssl-port: 19130
-  #   eventing-debug-port: 9140
-  #   xdcr-rest-port: 9998
-  #   projector-port: 9999
-  #   memcached-dedicated-port: 11209
-  #   memcached-dedicated-ssl-port: 11206
-  #   memcached-port: 11210
-  #   memcached-ssl-port: 11207
-  #   memcached-prometheus: 11280
+  additionalPorts:
+    ssl-rest-port: 18091
+    capi-port: 8092
+    ssl-capi-port: 18092
+    query-port: 8093
+    ssl-query-port: 18093
+    fts-http-port: 8094
+    fts-ssl-port: 18094
+    cbas-http-port: 8095
+    cbas-ssl-port: 18095
+    eventing-http-port: 8096
+    eventing-ssl-port: 18096
+    backup-http-port: 8097
+    backup-ssl-port: 18097
+    indexer-admin-port: 9100
+    indexer-scan-port: 9101
+    indexer-http-port: 9102
+    indexer-https-port: 19102
+    indexer-stinit-port: 9103
+    indexer-stcatchup-port: 9104
+    indexer-stmaint-port: 9105
+    cbas-admin-port: 9110
+    cbas-cc-http-port: 9111
+    cbas-cc-cluster-port: 9112
+    cbas-cc-client-port: 9113
+    cbas-console-port: 9114
+    cbas-cluster-port: 9115
+    cbas-data-port: 9116
+    cbas-result-port: 9117
+    cbas-messaging-port: 9118
+    cbas-auth-port: 9119
+    cbas-replication-port: 9120
+    cbas-metadata-port: 9121
+    cbas-metadata-callback-port: 9122
+    prometheus-http-port: 9123
+    backup-grpc-port: 9124
+    fts-grpc-port: 9130
+    fts-grpc-ssl-port: 19130
+    eventing-debug-port: 9140
+    xdcr-rest-port: 9998
+    projector-port: 9999
+    memcached-dedicated-port: 11209
+    memcached-dedicated-ssl-port: 11206
+    memcached-port: 11210
+    memcached-ssl-port: 11207
+    memcached-prometheus: 11280
 
 
 autoscaling:
