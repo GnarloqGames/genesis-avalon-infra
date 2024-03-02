@@ -1,0 +1,6 @@
+couchbase:
+  enabled: true
+ui:
+  enabled: true
+nats:
+  enabled: true
