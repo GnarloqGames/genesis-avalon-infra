@@ -2,5 +2,9 @@ couchbase:
   enabled: true
 ui:
   enabled: true
+  nameOverride: "ui"
+gateway:
+  enabled: true
+  nameOverride: "gateway"
 nats:
   enabled: true
