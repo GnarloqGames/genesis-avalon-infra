@@ -10,6 +10,7 @@ case $action in
         ;;
     release)
         ver=$(cat Chart.yaml | yq .version)
+	helm dep up
         helm package . -d dist
         helm push dist/${component}-${ver}.tgz oci://registry.0x42.in/genesis-avalon/helm
         ;;
