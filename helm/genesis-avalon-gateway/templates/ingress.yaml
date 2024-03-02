@@ -1,0 +1,64 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "genesis-avalon-gateway.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-active
+  labels:
+    {{- include "genesis-avalon-gateway.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - {{ .Values.ingress.hosts.active.host | quote }}
+      secretName: {{ .Values.ingress.hosts.active.tlsSecretName }}
+  rules:
+    - host: {{ .Values.ingress.hosts.active.host | quote }}
+      http:
+        paths:
+          {{- range .Values.ingress.hosts.active.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ $fullName }}-active
+                port:
+                  number: {{ $svcPort }}
+          {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-preview
+  labels:
+    {{- include "genesis-avalon-gateway.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - {{ .Values.ingress.hosts.preview.host | quote }}
+      secretName: {{ .Values.ingress.hosts.preview.tlsSecretName }}
+  rules:
+    - host: {{ .Values.ingress.hosts.preview.host | quote }}
+      http:
+        paths:
+          {{- range .Values.ingress.hosts.preview.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ $fullName }}-preview
+                port:
+                  number: {{ $svcPort }}
+          {{- end }}
+{{- end -}}

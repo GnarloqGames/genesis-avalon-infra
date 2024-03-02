@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "genesis-avalon-gateway.fullname" . }}
+  labels:
+    app: {{ include "genesis-avalon-gateway.name" . }}
+    chart: {{ include "genesis-avalon-gateway.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      app: {{ include "genesis-avalon-gateway.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "genesis-avalon-gateway.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+      containers:
+      - name: {{ include "genesis-avalon-gateway.name" . }}
+        args:
+          - start
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        envFrom:
+        - secretRef:
+            name: gateway-config
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+  strategy:
+    blueGreen:
+      activeService: {{ include "genesis-avalon-gateway.fullname" . }}-active
+      previewService: {{ include "genesis-avalon-gateway.fullname" . }}-preview
+      autoPromotionEnabled: false
+            
