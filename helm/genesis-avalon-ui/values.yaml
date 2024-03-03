@@ -89,7 +89,7 @@ configmap:
   data:
     config.js: |
       window.config = {
-        apiBaseUrl: "http://localhost:8080",
+        apiBaseUrl: "https://dev.api.game.avalon.cool",
         oidcAuthorityUrl: "https://idman.0x42.in/realms/dev.avalon.cool",
         oidcClientId: "dev.avalon.cool",
         oidcScope: "openid build"
