@@ -53,13 +53,13 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-      tlsSecretName: genesis-avalon-ui-active
+      tlsSecretName: genesis-avalon-gateway-active
     preview:
       host: preview.dev.api.game.avalon.cool
       paths:
         - path: /
           pathType: ImplementationSpecific
-      tlsSecretName: genesis-avalon-ui-preview
+      tlsSecretName: genesis-avalon-gateway-preview
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
