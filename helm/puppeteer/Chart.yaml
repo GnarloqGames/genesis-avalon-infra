@@ -45,7 +45,7 @@ dependencies:
     name: genesis-avalon-daemon
     alias: daemon
     repository: oci://registry.0x42.in/genesis-avalon/helm
-    version: 0.2.0
+    version: 0.3.0
     condition: daemon.enabled
   -
     name: nats
