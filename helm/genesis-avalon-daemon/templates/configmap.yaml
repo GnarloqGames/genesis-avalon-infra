@@ -1,0 +1,8 @@
+{{- if .Values.configmap -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{ include "genesis-avalon-daemon.name" . }}
+data:
+    {{- toYaml .Values.configmap.data | nindent 4 }}
+{{- end -}}
