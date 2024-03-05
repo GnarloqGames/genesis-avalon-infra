@@ -36,7 +36,7 @@ dependencies:
   - name: genesis-avalon-gateway
     alias: gateway
     repository: oci://registry.0x42.in/genesis-avalon/helm
-    version: 1.0.4
+    version: 1.0.5
     condition: gateway.enabled
   - name: nats
     repository: https://nats-io.github.io/k8s/helm/charts/

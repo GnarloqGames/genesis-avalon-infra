@@ -7,9 +7,9 @@ dependencies:
   version: 1.0.3
 - name: genesis-avalon-gateway
   repository: oci://registry.0x42.in/genesis-avalon/helm
-  version: 1.0.4
+  version: 1.0.5
 - name: nats
   repository: https://nats-io.github.io/k8s/helm/charts/
   version: 1.1.9
-digest: sha256:d9e6420d34ac114b7b069e6643f5223d7fb9f1cc02fbe1125717fda0fd3aa1c6
-generated: "2024-03-04T22:15:44.011433Z"
+digest: sha256:628cdd463f615a0f4e5f5ecc499d98a8689d440778efdb9e4cd2dd0642246d0d
+generated: "2024-03-05T08:45:05.155048Z"
