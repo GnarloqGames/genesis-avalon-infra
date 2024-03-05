@@ -66,12 +66,11 @@ services:
       - --couchbase-bucket
       - genesis-avalon
   ui:
-    image: registry.0x42.in/library/docker/genesis-avalon-ui:v0.2.0
+    image: registry.0x42.in/library/docker/genesis-avalon-ui:v0.5.0-pre.0
     ports:
       - 8081:80
     volumes:
       - ./ui/config.js:/usr/share/caddy/config.js
-      - ./ui/Caddyfile:/etc/caddy/Caddyfile
 
 volumes:
   couchbase_data:
