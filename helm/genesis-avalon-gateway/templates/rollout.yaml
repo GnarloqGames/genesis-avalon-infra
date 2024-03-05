@@ -30,7 +30,7 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - secretRef:
-            name: gateway-config
+            name: genesis-config
         command: ['/usr/bin/init-genesis']
       containers:
       - name: {{ include "genesis-avalon-gateway.name" . }}
@@ -40,7 +40,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         envFrom:
         - secretRef:
-            name: gateway-config
+            name: genesis-config
         ports:
         - name: http
           containerPort: 80
