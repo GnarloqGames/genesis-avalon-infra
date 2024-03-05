@@ -1,9 +1,18 @@
 #!/bin/bash
-set -o errexit
 
 USERNAME=$AVALOND_COUCHBASE_USERNAME
 PASSWORD=$AVALOND_COUCHBASE_PASSWORD
 HOST=http://${AVALOND_COUCHBASE_URL}:8091
+
+output=$(couchbase-cli server-list -c $HOST --username $USERNAME --password $PASSWORD)
+initialized=$?
+if [ "$initialized" -eq 0 ]
+then
+    echo $output
+    exit 0
+fi
+
+set -o errexit
 
 couchbase-cli cluster-init \
     --cluster $HOST \
