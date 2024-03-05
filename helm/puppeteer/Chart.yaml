@@ -39,7 +39,7 @@ dependencies:
     name: genesis-avalon-gateway
     alias: gateway
     repository: oci://registry.0x42.in/genesis-avalon/helm
-    version: 1.0.5
+    version: 1.0.6
     condition: gateway.enabled
   -
     name: genesis-avalon-daemon
