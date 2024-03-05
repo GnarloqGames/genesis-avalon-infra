@@ -2,7 +2,7 @@ version: '3'
 
 services:
   couchbase:
-    image: couchbase:community-7.2.4
+    image: registry.0x42.in/library/docker/couchbase:community-7.2.4
     volumes:
       - couchbase_data:/opt/couchbase/var
     ports:
