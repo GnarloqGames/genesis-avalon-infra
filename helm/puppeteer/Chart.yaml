@@ -24,21 +24,31 @@ version: 0.1.6
 appVersion: "1.16.0"
 
 dependencies:
-  - name: couchbase
+  - 
+    name: couchbase
     repository: oci://registry.0x42.in/genesis-avalon/helm
     version: 0.1.1
     condition: couchbase.enabled
-  - name: genesis-avalon-ui
+  - 
+    name: genesis-avalon-ui
     alias: ui
     repository: oci://registry.0x42.in/genesis-avalon/helm
     version: 1.0.3
     condition: ui.enabled
-  - name: genesis-avalon-gateway
+  -
+    name: genesis-avalon-gateway
     alias: gateway
     repository: oci://registry.0x42.in/genesis-avalon/helm
     version: 1.0.5
     condition: gateway.enabled
-  - name: nats
+  -
+    name: genesis-avalon-daemon
+    alias: daemon
+    repository: oci://registry.0x42.in/genesis-avalon/helm
+    version: 0.1.0
+    condition: daemon.enabled
+  -
+    name: nats
     repository: https://nats-io.github.io/k8s/helm/charts/
     version: 1.1.9
     condition: nats.enabled

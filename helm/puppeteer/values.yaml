@@ -6,5 +6,8 @@ ui:
 gateway:
   enabled: true
   nameOverride: "gateway"
+daemon:
+  enabled: true
+  nameOverride: "daemon"
 nats:
   enabled: true
