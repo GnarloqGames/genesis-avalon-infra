@@ -21,7 +21,7 @@ services:
       - 6222:6222
       - 8222:8222
   avalond:
-    image: registry.0x42.in/library/docker/genesis-avalon-avalond:v0.4.1
+    image: registry.0x42.in/library/docker/genesis-avalon-avalond:v0.5.0
     depends_on:
       - nats
     command:
@@ -39,7 +39,7 @@ services:
       - --couchbase-bucket
       - genesis-avalon
   gateway:
-    image: registry.0x42.in/library/docker/genesis-avalon-gateway:v0.4.0
+    image: registry.0x42.in/library/docker/genesis-avalon-gateway:v0.5.0
     depends_on:
       - nats
       - couchbase
