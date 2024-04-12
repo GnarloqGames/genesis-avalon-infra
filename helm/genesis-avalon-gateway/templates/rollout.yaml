@@ -22,7 +22,7 @@ spec:
       {{- if and .Values.linkerd .Values.linkerd.enabled }}
       annotations:
         linkerd.io/inject: enabled
-        linkerd.io/opaque-ports: "4222"
+        config.linkerd.io/opaque-ports: "4222"
       {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
