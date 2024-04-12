@@ -19,6 +19,10 @@ spec:
       labels:
         app: {{ include "genesis-avalon-gateway.name" . }}
         release: {{ .Release.Name }}
+      {{- if and .Values.linkerd .Values.linkerd.enabled }}
+      annotations:
+        linkerd.io/inject: enabled
+      {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

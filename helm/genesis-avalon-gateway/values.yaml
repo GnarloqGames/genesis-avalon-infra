@@ -42,6 +42,9 @@ service:
   type: ClusterIP
   port: 80
 
+linkerd:
+  enabled: true
+
 ingress:
   enabled: true
   annotations:

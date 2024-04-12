@@ -8,6 +8,10 @@ metadata:
     chart: {{ include "genesis-avalon-gateway.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  {{- if and .Values.linkerd .Values.linkerd.enabled }}
+  annotations:
+    linkerd.io/inject: enabled
+  {{- end }}
 spec:
   type: ClusterIP
   ports:
