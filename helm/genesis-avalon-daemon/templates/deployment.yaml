@@ -9,7 +9,6 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
       app: {{ include "genesis-avalon-daemon.name" . }}
@@ -19,6 +18,11 @@ spec:
       labels:
         app: {{ include "genesis-avalon-daemon.name" . }}
         release: {{ .Release.Name }}
+      {{- if and .Values.linkerd .Values.linkerd.enabled }}
+      annotations:
+        linkerd.io/inject: enabled
+        config.linkerd.io/opaque-ports: "4222"
+      {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

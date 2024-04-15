@@ -33,3 +33,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+linkerd:
+  enabled: true
